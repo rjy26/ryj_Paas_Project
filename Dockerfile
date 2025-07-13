@@ -1,20 +1,21 @@
-# Use Node base image
+# Use official Node.js LTS image
 FROM node:18
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install deps
+# Copy dependency files and install
 COPY package.json yarn.lock ./
 RUN yarn install
 
-# Copy rest of the code
+# Copy entire project
 COPY . .
 
-# Build Vite project
+# Build static site using Vite
 RUN yarn build
 
-# Set environment port and run server
-ENV PORT 8080
+# Expose port 8080 for Cloud Run
 EXPOSE 8080
+
+# Start Express server
 CMD ["node", "server.js"]
