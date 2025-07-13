@@ -1,14 +1,21 @@
-# Step 1: Build
-FROM node:18 AS builder
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
-
-# Step 2: Serve
+# Use official Node.js image
 FROM node:18
+
+# Set working directory
 WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY server.js .
-RUN npm install express
-EXPOSE 8080
-CMD ["node", "server.js"]
+
+# Copy package.json and install deps
+COPY package.json yarn.lock ./
+RUN yarn install
+
+# Copy the rest of the code
+COPY . .
+
+# Build the Vite app
+RUN yarn build
+
+# Expose the port Cloud Run uses
+ENV PORT 8080
+
+# Start the Express server
+CMD [ "node", "server.js" ]
