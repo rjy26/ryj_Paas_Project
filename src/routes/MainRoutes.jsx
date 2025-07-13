@@ -52,10 +52,6 @@ const MainRoutes = {
         {
           path: '/sample-page',
           element: <Sample />
-        },
-        {
-          path: '*',
-          element: <h1>Not Found</h1>
         }
       ]
     },
