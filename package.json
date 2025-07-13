@@ -25,9 +25,15 @@
     "yup": "^1.4.0"
   },
   "scripts": {
-  "dev": "vite",
+  "start": "node server.js",
   "build": "vite build",
-  "start": "node server.js"
+  "preview": "vite preview",
+  "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+  "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+  "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+  "knip": "knip",
+  "predeploy": "yarn build",
+  "deploy": "gh-pages -d dist"
 },
   "overrides": {
     "autoprefixer": "10.4.5"
