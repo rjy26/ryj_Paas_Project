@@ -1,21 +1,23 @@
-# Use official Node.js image
+# Base image with Node.js
 FROM node:18
 
-# Set working directory
+# Create app directory
 WORKDIR /app
 
-# Copy package.json and install deps
+# Copy dependencies
 COPY package.json yarn.lock ./
+
+# Install dependencies
 RUN yarn install
 
-# Copy the rest of the code
+# Copy everything else
 COPY . .
 
-# Build the Vite app
+# Build your Vite app
 RUN yarn build
 
-# Expose the port Cloud Run uses
+# Cloud Run requires PORT=8080
 ENV PORT 8080
 
-# Start the Express server
-CMD [ "node", "server.js" ]
+# Start Express server
+CMD ["node", "server.js"]
